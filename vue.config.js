@@ -32,7 +32,7 @@ module.exports = {
   css: {
     loaderOptions: {
       scss: {
-        additionalData: '@import "~@/config.scss";'
+        additionalData: '@import "~@/styles/config.scss";'
       }
     }
   }

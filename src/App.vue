@@ -1,10 +1,15 @@
 <template>
-  <div id="app">
+  <div
+    id="app"
+    :data-theme="theme"
+  >
     <Header
       :theme="theme"
       @change-theme="changeTheme"
     />
-    <router-view />
+    <main class="site-main">
+      <router-view :key="$route.path" />
+    </main>
     <Footer />
   </div>
 </template>
@@ -44,161 +49,51 @@ export default {
 </script>
 
 <style lang="scss">
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+@import '@/styles/reset.scss';
+@import '@/styles/base.scss';
+@import '@/styles/dark-theme.scss';
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+TC&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%;
-  font: inherit;
-  vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
-  display: block;
-}
-body {
-  line-height: 1;
-}
-ol, ul {
-  list-style: none;
-}
-blockquote, q {
-  quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
-  content: none;
-}
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-*, ::before, ::after {
-  box-sizing: border-box;
-}
+@mixin input-width($prefix, $division) {
+  $form-full-width: 540;
 
-:root {
-  --white: #FFFFFF;
-  --pink: #F67599;
-  --grey-800: #2A2A2A;
-  --grey-700: #333333;
-  --grey-400: #808080;
-  --grey-300: #999999;
-
-  --site-edge-margin: 15px;
-
-  --main-font-family: 'Noto Sans TC', sans-serif;
-}
-
-body {
-  --background-color: #FFFFFF;
-  --footer-background-color: #F6F7F8;
-  --nav-icon: #2A2A2A;
-  --social-icon: #808080;
-  --main-text: #2A2A2A;
-  --secondary-text: #808080;
-  --active-color: lightblue;
-
-  --undone-progress-border: #F0F0F5;
-  --done-progress-border: #000000;
-  --progress-current-color: #2A2A2A;
-  --progress-done-color: #FFFFFF;
-  --progress-undone-color: #AFB1BD;
-  --pg-addr-color: #FFFFFF;
-  --pg-addr-bg-color: #2A2A2A;
-  --input-label: #808080;
-  --input-border: #4A4A4A;
-  --input-text: #999999;
-  --select-arrow: #2A2A2A;
-  --select-true: #2A2A2A;
-  --select-false: #999999;
-  --product-action-text: #000000;
-  --product-action-bg: #F0F0F5;
-  --left-arrow: #000000;
-
-  background-color: var(--background-color);
-  color: var(--main-text);
-  font-family: var(--main-font-family);
-  font-size: 16px;
-  user-select: none;
-}
-
-ul, ol, li {
-  list-style: none;
-  margin: 0px;
-  padding: 0px;
-}
-
-#app {
-  width: 100vw;
-  height: 100vh;
-}
-
-.container {
-  margin: 0px 15px;
-}
-
-.mx-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-.mr-auto {
-  margin-right: auto !important;
-}
-.cursor-point {
-  cursor: pointer;
-}
-
-@mixin col-series($serial) {
-  display: flex;
-  flex-wrap: wrap;
-  $width: 100% / 12 * $serial;
-  flex: 0 0 $width;
-  align-content: flex-start;
-  max-width: $width;
-}
-.col {
-  @for $index from 1 to 13 {
-    &.col-#{$index} {
-      @include col-series($index);
+  @for $index from 1 to ($division + 1) {
+    .#{$prefix}-#{$index} {
+        width: 100% * (($index * 65 + ($index - 1) * 30) / $form-full-width);
     }
   }
 }
+
+main.site-main {
+  margin-top: 80px;
+  padding-left: var(--site-edge-margin);
+  padding-right: var(--site-edge-margin);
+  background-color: inherit;
+}
+
 @media screen and (min-width: $screen-break-point) {
-  .col {
-    @for $index from 1 to 13 {
-      &.col-lg-#{$index} {
-        @include col-series($index);
-      }
-    }
-  }
+  @include input-width('input-w-lg', 6);
 }
+
 @media screen and (max-width: $screen-break-point) {
-  .col {
-    @for $index from 1 to 13 {
-      &.col-sm-#{$index} {
-        @include col-series($index);
-      }
-    }
+  $mobile-form-full-width: 346;
+
+  .input-w-sm-s1 {
+    width: 100% * 133 / $mobile-form-full-width;
+  }
+  .input-w-sm-s2 {
+    width: 100% * 183 / $mobile-form-full-width;
+  }
+  .input-w-sm-s3 {
+    width: 100% * 158 / $mobile-form-full-width;
+  }
+  .input-w-sm-full {
+    width: 100%;
+  }
+  main.site-main {
+    margin-top: 16px;
   }
 }
 </style>

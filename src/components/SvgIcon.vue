@@ -1,5 +1,5 @@
 <template>
-  <svg :class="`svg-icon ${iconClass}`">
+  <svg :class="['svg-icon', iconClass]">
     <use :xlink:href="`#svg-icon-${iconName}`" />
   </svg>
 </template>
@@ -9,7 +9,7 @@ export default {
   name: 'SvgIcon',
   props: {
     iconClass: {
-      type: String,
+      type: [String, Array],
       default: ''
     },
     iconName: {

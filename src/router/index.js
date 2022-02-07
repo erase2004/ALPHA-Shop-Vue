@@ -13,17 +13,17 @@ const routes = [
   {
     path: '/address',
     name: 'address',
-    component: () => import('../views/Address.vue')
+    component: () => import('../views/Register.vue')
   },
   {
     path: '/shipping',
     name: 'shipping',
-    component: () => import('../views/Shipping.vue')
+    component: () => import('../views/Register.vue')
   },
   {
     path: '/payment',
     name: 'payment',
-    component: () => import('../views/Payment.vue')
+    component: () => import('../views/Register.vue')
   },
   {
     path: '*',
