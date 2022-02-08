@@ -174,3 +174,9 @@ section.form-container {
         }
     }
 }
+
+@media screen and (max-width: $screen-break-point) {
+  section.form-container {
+    margin-top: 24px;
+  }
+}

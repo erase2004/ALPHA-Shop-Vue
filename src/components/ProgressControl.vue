@@ -3,6 +3,7 @@
   <section class="progress-control-container col col-lg-6 col-sm-12">
     <section
       v-if="page === 'address'"
+      data-page="address"
       class="button-group col col-12"
     >
       <router-link
@@ -16,6 +17,7 @@
     </section>
     <section
       v-else-if="page === 'shipping'"
+      data-page="shipping"
       class="button-group col col-12"
     >
       <router-link
@@ -37,6 +39,7 @@
     </section>
     <section
       v-else-if="page === 'payment'"
+      data-page="payment"
       class="button-group col col-12"
     >
       <router-link
@@ -115,6 +118,25 @@ section.button-group {
 
       > svg {
         margin-left: 12px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $screen-break-point) {
+  section.progress-control-container {
+    position: relative;
+    margin-top: 24px;
+    margin-bottom: 40px;
+  }
+  section.button-group {
+    button.next {
+      width: 156px;
+    }
+
+    &[data-page='address'] {
+      button.next {
+        width: 100%;
       }
     }
   }

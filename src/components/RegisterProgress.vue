@@ -217,4 +217,25 @@ section.progress-container {
     }
   }
 }
+
+@media screen and (max-width: $screen-break-point) {
+  section.progress-container {
+    margin-top: 24px;
+
+    .progress-group {
+      .progress-icon {
+        width: 32px;
+        height: 32px;
+        margin-right: 0px;
+
+        .text {
+          line-height: 32px;
+        }
+      }
+    }
+    .progress-label {
+      display: none;
+    }
+  }
+}
 </style>
