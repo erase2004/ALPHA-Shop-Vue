@@ -10,14 +10,14 @@
     <main class="site-main">
       <router-view
         @whole-data-modified="wholeData = $event"
-        @modal-opened="modalShow = true"
+        @modal-opened="toggleModal"
       />
     </main>
     <Footer />
     <Modal
       v-show="modalShow"
       :whole-data="wholeData"
-      @modal-closed="modalShow = false"
+      @modal-closed="toggleModal"
     />
   </div>
 </template>
@@ -55,6 +55,12 @@ export default {
     changeTheme () {
       this.theme = themeMap[this.theme] || 'light'
       localStorage.setItem('theme', this.theme)
+    },
+    toggleModal () {
+      if (this.modalShow === false) {
+        console.dir(JSON.parse(JSON.stringify(this.wholeData)))
+      }
+      this.modalShow = !this.modalShow
     }
   }
 }
