@@ -19,23 +19,29 @@
         <!-- address phase -->
         <AddressForm v-show="page === 'address'" />
         <!-- shipping phase -->
-        <ShippingForm v-show="page === 'shipping'" />
+        <ShippingForm
+          v-show="page === 'shipping'"
+          @shipping-changed="shippingFee = $event"
+        />
         <!-- credit-card phase -->
         <PaymentForm v-show="page === 'payment'" />
       </section>
     </section>
-    <Cart />
+    <Cart
+      :shipping-fee="shippingFee"
+      @total-changed="priceTotal = $event"
+    />
     <ProgressControl :page="page" />
   </div>
 </template>
 
 <script>
-import RegisterProgress from '../components/RegisterProgress.vue'
-import AddressForm from '../components/AddressForm.vue'
-import ShippingForm from '../components/ShippingForm.vue'
-import PaymentForm from '../components/PaymentForm.vue'
-import Cart from '../components/Cart.vue'
-import ProgressControl from '../components/ProgressControl.vue'
+import RegisterProgress from '@/components/RegisterProgress.vue'
+import AddressForm from '@/components/AddressForm.vue'
+import ShippingForm from '@/components/ShippingForm.vue'
+import PaymentForm from '@/components/PaymentForm.vue'
+import Cart from '@/components/Cart.vue'
+import ProgressControl from '@/components/ProgressControl.vue'
 export default {
   components: {
     RegisterProgress,
@@ -47,7 +53,9 @@ export default {
   },
   data () {
     return {
-      page: 'address'
+      page: 'address',
+      shippingFee: 0,
+      priceTotal: 0
     }
   },
   created () {

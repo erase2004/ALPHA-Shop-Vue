@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -13,22 +12,22 @@ const routes = [
   {
     path: '/address',
     name: 'address',
-    component: () => import('../views/Register.vue')
+    component: () => import('@/views/Register.vue')
   },
   {
     path: '/shipping',
     name: 'shipping',
-    component: () => import('../views/Register.vue')
+    component: () => import('@/views/Register.vue')
   },
   {
     path: '/payment',
     name: 'payment',
-    component: () => import('../views/Register.vue')
+    component: () => import('@/views/Register.vue')
   },
   {
     path: '*',
     name: 'not-found',
-    component: NotFound
+    redirect: '/address'
   }
 ]
 

@@ -1,7 +1,6 @@
 <template>
   <form
     class="col col-12"
-    data-phase="credit-card"
   >
     <h3 class="form-title">
       付款資訊

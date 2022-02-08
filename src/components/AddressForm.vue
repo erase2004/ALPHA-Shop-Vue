@@ -1,7 +1,6 @@
 <template>
   <form
     class="col col-12"
-    data-phase="address"
   >
     <h3 class="form-title">
       寄送地址

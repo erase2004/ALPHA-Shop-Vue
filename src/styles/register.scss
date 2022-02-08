@@ -20,7 +20,7 @@ section.form-container {
     display: flex;
     margin-top: 64px;
 
-    h3.form-title {
+    ::v-deep h3.form-title {
         display: flex;
         flex: 0 0 100%;
         font-weight: 700;

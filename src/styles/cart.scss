@@ -14,7 +14,7 @@ section.cart-container {
     }
 }
 
-section.product-list {
+::v-deep section.product-list {
     .product-container {
         display: flex;
         flex-wrap: nowrap;
@@ -107,7 +107,7 @@ section.cart-info {
         }
     }
 
-    section.product-list {
+    ::v-deep section.product-list {
         .product-container {
             .product-info {
                 flex-direction: column;
