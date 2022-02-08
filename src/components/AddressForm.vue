@@ -12,7 +12,7 @@
             稱謂
           </div>
           <div class="select-container">
-            <select>
+            <select v-model="salutation">
               <option
                 value="mr"
                 selected
@@ -33,6 +33,7 @@
             姓名
           </div>
           <input
+            v-model.lazy="username"
             type="text"
             placeholder="請輸入姓名"
           >
@@ -44,6 +45,7 @@
             電話
           </div>
           <input
+            v-model.lazy="phone"
             type="tel"
             placeholder="請輸入行動電話"
           >
@@ -53,6 +55,7 @@
             Email
           </div>
           <input
+            v-model.lazy="email"
             type="email"
             placeholder="請輸入電子郵件"
           >
@@ -64,7 +67,10 @@
             縣市
           </div>
           <div class="select-container">
-            <select required>
+            <select
+              v-model="city"
+              required
+            >
               <option value="">
                 請選擇縣市
               </option>
@@ -163,11 +169,52 @@
             地址
           </div>
           <input
+            v-model.lazy="addr"
             type="text"
             placeholder="請輸入地址"
           >
         </div>
       </div>
     </section>
+    <span class="hidden">{{ hiddenOutput }}</span>
   </form>
 </template>
+
+<script>
+import { storage } from '@/utils/helper'
+const storeKey = 'addressForm'
+
+export default {
+  data () {
+    return {
+      salutation: '',
+      username: '',
+      phone: '',
+      email: '',
+      city: '',
+      addr: ''
+    }
+  },
+  computed: {
+    hiddenOutput () {
+      const data = {
+        salutation: this.salutation,
+        username: this.username,
+        phone: this.phone,
+        email: this.email,
+        city: this.city,
+        addr: this.addr
+      }
+
+      storage.set(storeKey, data)
+      this.$emit('address-form-modified', data)
+      return ''
+    }
+  },
+  created () {
+    const data = storage.get(storeKey)
+
+    Object.assign(this, data)
+  }
+}
+</script>

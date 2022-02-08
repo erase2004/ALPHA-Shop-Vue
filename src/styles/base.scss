@@ -64,6 +64,9 @@ ul, ol, li {
 .cursor-point {
     cursor: pointer;
 }
+.hidden {
+    display: none;
+}
 
 @mixin col-series($serial) {
     display: flex;

@@ -141,9 +141,11 @@ section.progress-container {
 
       &.current, &.done {
         border-color: var(--done-progress-border);
+        background-color: var(--done-progress-border);
       }
       &.undone {
         border-color: var(--undone-progress-border);
+        background-color: var(--undone-progress-border);
       }
   }
 

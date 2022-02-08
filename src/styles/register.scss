@@ -51,7 +51,7 @@ section.form-container {
                 top: 50%;
                 right: 12px;
                 transform: translateY(-50%);
-                z-index: -2;
+                z-index: 5;
                 pointer-events: none;
                 border-style: solid;
                 border-width: 6px 5px 0 5px;
@@ -72,7 +72,10 @@ section.form-container {
             background-color: transparent;
         }
         input {
-            color: var(--input-text);
+            color: var(--main-text);
+            &::placeholder {
+                color: var(--input-text);
+            }
         }
         select {
             color: var(--select-true);
@@ -90,6 +93,10 @@ section.form-container {
                 }
                 color: var(--select-true);
             }
+        }
+        option {
+            color: var(--select-true);
+            background-color: var(--background-color);
         }
     }
 

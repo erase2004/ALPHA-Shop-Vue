@@ -47,7 +47,10 @@
         <icon icon-name="left-arrow" />
         上一步
       </router-link>
-      <button class="next cursor-point">
+      <button
+        class="next cursor-point"
+        @click.stop.prevent="openModal"
+      >
         確認下單
       </button>
     </section>
@@ -61,6 +64,11 @@ export default {
     page: {
       type: String,
       required: true
+    }
+  },
+  methods: {
+    openModal () {
+      this.$emit('modal-opened')
     }
   }
 }

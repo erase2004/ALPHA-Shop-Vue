@@ -8,15 +8,24 @@
       @change-theme="changeTheme"
     />
     <main class="site-main">
-      <router-view :key="$route.path" />
+      <router-view
+        @whole-data-modified="wholeData = $event"
+        @modal-opened="modalShow = true"
+      />
     </main>
     <Footer />
+    <Modal
+      v-show="modalShow"
+      :whole-data="wholeData"
+      @modal-closed="modalShow = false"
+    />
   </div>
 </template>
 
 <script>
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
+import Modal from '@/components/Modal.vue'
 
 const themeMap = {
   light: 'dark',
@@ -26,11 +35,14 @@ const themeMap = {
 export default {
   components: {
     Header,
-    Footer
+    Footer,
+    Modal
   },
   data () {
     return {
-      theme: 'light'
+      theme: 'light',
+      modalShow: false,
+      wholeData: {}
     }
   },
   created () {

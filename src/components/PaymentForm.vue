@@ -12,6 +12,7 @@
             持卡人姓名
           </div>
           <input
+            v-model.lazy="ccname"
             type="text"
             placeholder="John Doe"
           >
@@ -23,6 +24,7 @@
             卡號
           </div>
           <input
+            v-model.lazy="cardnumber"
             type="text"
             placeholder="1111 2222 3333 4444"
           >
@@ -34,6 +36,7 @@
             有效期限
           </div>
           <input
+            v-model.lazy="expdate"
             type="text"
             placeholder="MM/YY"
           >
@@ -43,11 +46,48 @@
             CVC / CCV
           </div>
           <input
+            v-model.lazy="cvv"
             type="text"
             placeholder="123"
           >
         </div>
       </div>
     </section>
+    <span class="hidden">{{ hiddenOutput }}</span>
   </form>
 </template>
+
+<script>
+import { storage } from '@/utils/helper'
+const storeKey = 'paymentForm'
+
+export default {
+  data () {
+    return {
+      ccname: '',
+      cardnumber: '',
+      expdate: '',
+      cvv: ''
+    }
+  },
+  computed: {
+    hiddenOutput () {
+      const data = {
+        ccname: this.ccname,
+        cardnumber: this.cardnumber,
+        expdate: this.expdate,
+        cvv: this.cvv
+      }
+
+      storage.set(storeKey, data)
+      this.$emit('payment-form-modified', data)
+      return ''
+    }
+  },
+  created () {
+    const data = storage.get(storeKey)
+
+    Object.assign(this, data)
+  }
+}
+</script>

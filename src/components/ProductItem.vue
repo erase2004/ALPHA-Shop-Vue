@@ -66,13 +66,11 @@ export default {
   methods: {
     decrease () {
       const amount = Math.max(this.amount - 1, 0)
-      const price = this.price
-      this.$emit('amount-changed', { amount, price })
+      this.$emit('amount-changed', amount)
     },
     increase () {
       const amount = this.amount + 1
-      const price = this.price
-      this.$emit('amount-changed', { amount, price })
+      this.$emit('amount-changed', amount)
     }
   }
 }

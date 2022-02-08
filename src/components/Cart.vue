@@ -9,13 +9,13 @@
       class="product-list col col-12"
     >
       <ProductItem
-        v-for="(product, index) in productList"
-        :key="product.name"
+        v-for="(product, key) in productList"
+        :key="key"
         :image="product.image"
         :name="product.name"
         :price="product.price"
-        :amount="productAmount[index]"
-        @amount-changed="changeAmount($event, index)"
+        :amount="product.amount"
+        @amount-changed="changeAmount($event, key)"
       />
     </section>
 
@@ -39,24 +39,25 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import { formatPrice } from '@/utils/mixin'
 import { storage } from '@/utils/helper'
 import ProductItem from '@/components/ProductItem.vue'
 
-const productList = [
-  {
+const productList = {
+  product1: {
     name: '破壞補丁修身牛仔褲',
     image: 'product-1.jpg',
-    price: 3999
+    price: 3999,
+    amount: 0
   },
-  {
+  product2: {
     name: '刷色直筒牛仔褲',
     image: 'product-2.jpg',
-    price: 1299
+    price: 1299,
+    amount: 0
   }
-]
-const storeKey = 'productAmount'
+}
+const storeKey = 'productList'
 
 export default {
   components: {
@@ -71,8 +72,7 @@ export default {
   },
   data: function () {
     return {
-      productList: productList,
-      productAmount: [0, 0]
+      productList
     }
   },
   computed: {
@@ -80,9 +80,9 @@ export default {
       let total = 0
       total += this.shippingFee
 
-      for (const index in productList) {
-        const product = productList[index]
-        total += product.price * this.productAmount[index]
+      for (const key in this.productList) {
+        const product = this.productList[key]
+        total += product.price * product.amount
       }
 
       this.$emit('total-changed', total)
@@ -98,18 +98,18 @@ export default {
     }
   },
   created () {
-    const amount = storage.get(storeKey)
+    const productList = storage.get(storeKey)
 
-    if (Array.isArray(amount)) {
-      this.productAmount = amount
-    } else {
-      storage.set(storeKey, this.productAmount)
+    if (typeof productList === 'object') {
+      Object.assign(this.productList, productList)
     }
+
+    storage.set(storeKey, this.productList)
   },
   methods: {
-    changeAmount (data, order) {
-      Vue.set(this.productAmount, order, data.amount)
-      storage.set(storeKey, this.productAmount)
+    changeAmount (amount, key) {
+      this.productList[key].amount = amount
+      storage.set(storeKey, this.productList)
     }
   }
 }
